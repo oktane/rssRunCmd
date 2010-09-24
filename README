@@ -3,35 +3,54 @@ oktane - 2010
 license: http://creativecommons.org/licenses/GPL/2.0/
 
 What it's for:
-Tool to check an RSS feed for a new item and run an external command/application based on the contents of the item. Useful for fetching/processing items from development 'build release' feeds. 
+Tool to check an RSS feed for a new item and run an external command/application 
+based on the contents of the item. Useful for fetching/processing items from 
+development 'build release' feeds. 
 
 How to use:
-Edit INI file first. If one does not exist on first run, it will be created with default values. Detail of settings below.
+Edit INI file first. If one does not exist on first run, it will be created with 
+default values. Detail of settings below.
 
 [options]
-### The URL of the feed. To test the demo feed, upload it somewhere and give the URL here.
+### The URL of the feed. To test the demo feed, upload it somewhere and give the
+### URL here.
 feedURL=http://localhost/dummy.xml
-### RegEx to operate on 'link' section of RSS item, to extract a filename or can be simply .*
+
+### RegEx to operate on 'link' section of RSS item, to extract a filename or can 
+### be simply .*
 urlFilename_RegEx=^.*/
-### regex to extract UID used to cache item and provide {0} string formatter. Extracted from urlFilename_RegEx. For example, this demo extracts the build version number from Application_Build_12345.zip
+
+### Regex to extract UID used to cache item and provide {0} string formatter. 
+### Extracted from urlFilename_RegEx. For example, this demo extracts the build 
+### version number from Application_Build_12345.zip
 urlUID_RegEx=^Application_Build_(\d+)\.zip
-## The name of application/script to run (optionally with path)
+
+### The name of application/script to run (optionally with path)
 exeToRun=testaction.bat
+
 ### Working directory when exeToRun is executed
 exeWorkingDir=.
-### Valid string formatters for the exeParams setting: {0} version/uid, {1} filename, {2} url, {3} pubdate, {4} title, {5} description
+
+### Valid string formatters for the exeParams setting: {0} version/uid,
+### {1} filename, {2} url, {3} pubdate, {4} title, {5} description
 exeParams={0} {1} {2} "{3}" "{4}" "{5}"
 
-### This is the section where the app keeps track of items it has already processed. It is filled in automatically.
+### This is the section where the app keeps track of items it has already 
+### processed. It is filled in automatically.
 [ignore]
 SomeUIDValue=processed
-or
+### or
 12345=processed
 
+After setting up the INI file, simply create a scheduled task to run 
+rssRunCmd.exe on the schedule you desire. If the application that you run does 
+not return a 'happy' errorcode (0) then the item will fail and be processed 
+again the next time.
 
-After setting up the INI file, simply create a scheduled task to run rssRunCmd.exe on the schedule you desire.
+oktane - 2010
 
 
+LICENSE
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -47,4 +66,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 http://creativecommons.org/licenses/GPL/2.0/
 
-oktane - 2010
